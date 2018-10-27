@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hexo博客搭建]]></title>
+    <url>%2Fposts%2Fb8f4bd70.html</url>
+    <content type="text"><![CDATA[Hexo博客搭建写在前面我使用的计算机为Windows平台，并以此为例，请确保在计算机上已经安装过Node.js和Git，然后在正确的路径执行以下命令： 1234npm install hexo-cli -g hexo init blog cd blog npm install 基本配置根据需要编辑文件_config.yml并应用自己的配置： 站点配置 1234567title: Tr4yv0n&apos;s Blogsubtitle:description:keywords: Programming,WebSec...etcauthor: Trayvonlanguage:zh-Hanstimezone: Asia/Shanghai URL配置 首先，安装依赖： 1npm install hexo-abbrlink --save 配置： 1234567url: http://yoursite.com root: / permalink: post/:abbrlink.htmlabbrlink: alg: crc32 # support crc16(default) and crc32 rep: hex # support dec(default) and hexpermalink_defaults: 部署配置 设置远程存储库。例如，创建您的GitHub页面。 在本地计算机上安装依赖项： 1npm install hexo-deployer-git --save 配置网站_config.yml 1234deploy: type: git repo: https://github.com/YourgithubName/YourgithubName.github.io.git branch: master 注意：需要将配置项中的repo更改为自己的仓库路径，且要注意每个配置选项的冒号后面要有一个空格，必要严格参照此规定格式，否则配置不会生效！！！ 请注意，要将博客部署到远程服务器，您必须具有用于编写访问权限的正确凭据。请参阅使用SSH连接到GitHub。 如果还想将博客部署到自己的Git服务器中，请参阅服务器上的Git - 设置服务器。 主题配置 首先，安装主题相关依赖： 1git clone https://github.com/theme-next/hexo-theme-next themes / next 配置： 在网站配置文件_config.yml 1theme: next NEXT主题相关配置根据需要编辑文件themes/next/_config.yml并应用自己的配置： 图标配置 访问https://realfavicongenerator.net并获取favicon。 配置主题： 123favicon： small: /favicon-16x16-next.png medium: /favicon-32x32-next.png]]></content>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F10%2F24%2Fhello-world%2F</url>
+    <url>%2Fposts%2F4a17b156.html</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>

@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
-  <updated>2017-10-28T00:39:58.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://trayvon.me/"/>
+  <updated>2018-10-27T11:27:28.457Z</updated>
+  <id>http://trayvon.me/</id>
   
   <author>
     <name>Trayvon</name>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hexo博客搭建</title>
+    <link href="http://trayvon.me/posts/b8f4bd70.html"/>
+    <id>http://trayvon.me/posts/b8f4bd70.html</id>
+    <published>2018-10-26T09:48:24.000Z</published>
+    <updated>2018-10-27T11:27:28.457Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Hexo博客搭建"><a href="#Hexo博客搭建" class="headerlink" title="Hexo博客搭建"></a>Hexo博客搭建</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>我使用的计算机为<code>Windows</code>平台，并以此为例，请确保在计算机上已经安装过<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a>和<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a>，然后在正确的路径执行以下命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g </span><br><span class="line">hexo init blog </span><br><span class="line">cd blog </span><br><span class="line">npm install</span><br></pre></td></tr></table></figure><h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>根据需要编辑文件<code>_config.yml</code>并应用自己的配置：</p><h3 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h3> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: Tr4yv0n&apos;s Blog</span><br><span class="line">subtitle:</span><br><span class="line">description:</span><br><span class="line">keywords: Programming,WebSec...etc</span><br><span class="line">author: Trayvon</span><br><span class="line">language:zh-Hans</span><br><span class="line">timezone: Asia/Shanghai</span><br></pre></td></tr></table></figure><h3 id="URL配置"><a href="#URL配置" class="headerlink" title="URL配置"></a>URL配置</h3><ol><li><p>首先，安装依赖：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure></li><li><p>配置：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">url: http://yoursite.com </span><br><span class="line">root: / </span><br><span class="line">permalink: post/:abbrlink.html</span><br><span class="line">abbrlink:</span><br><span class="line">  alg: crc32  # support crc16(default) and crc32</span><br><span class="line">  rep: hex    # support dec(default) and hex</span><br><span class="line">permalink_defaults:</span><br></pre></td></tr></table></figure></li></ol><h3 id="部署配置"><a href="#部署配置" class="headerlink" title="部署配置"></a>部署配置</h3><ol><li><p>设置远程存储库。例如，创建您的<a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub页面</a>。</p></li><li><p>在本地计算机上安装依赖项：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li><li><p>配置网站<code>_config.yml</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/YourgithubName/YourgithubName.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><ul><li><p>注意：需要将配置项中的<code>repo</code>更改为自己的仓库路径，且要注意每个配置选项的冒号后面要有一个空格，必要严格参照此规定格式，否则配置不会生效！！！</p></li><li><p>请注意，要将博客部署到远程服务器，您必须具有用于编写访问权限的正确凭据。请参阅<a href="https://help.github.com/articles/connecting-to-github-with-ssh/" target="_blank" rel="noopener">使用SSH连接到GitHub</a>。</p><p>如果还想将博客部署到自己的Git服务器中，请参阅服务器上的<a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server" target="_blank" rel="noopener">Git - 设置服务器</a>。</p></li></ul><h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3></li><li><p>首先，安装主题相关依赖：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes / next</span><br></pre></td></tr></table></figure></li><li><p>配置：</p><p>在网站配置文件<code>_config.yml</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></li></ol><h2 id="NEXT主题相关配置"><a href="#NEXT主题相关配置" class="headerlink" title="NEXT主题相关配置"></a>NEXT主题相关配置</h2><p>根据需要编辑文件<code>themes/next/_config.yml</code>并应用自己的配置：</p><h3 id="图标配置"><a href="#图标配置" class="headerlink" title="图标配置"></a>图标配置</h3><ol><li><p>访问<a href="https://realfavicongenerator.net/" target="_blank" rel="noopener">https://realfavicongenerator.net</a>并获取<code>favicon</code>。</p></li><li><p>配置主题：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">favicon：</span><br><span class="line">  small: /favicon-16x16-next.png </span><br><span class="line">  medium: /favicon-32x32-next.png</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Hexo博客搭建&quot;&gt;&lt;a href=&quot;#Hexo博客搭建&quot; class=&quot;headerlink&quot; title=&quot;Hexo博客搭建&quot;&gt;&lt;/a&gt;Hexo博客搭建&lt;/h1&gt;&lt;h2 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; 
+      
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="http://trayvon.me/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2018/10/24/hello-world/"/>
-    <id>http://yoursite.com/2018/10/24/hello-world/</id>
+    <link href="http://trayvon.me/posts/4a17b156.html"/>
+    <id>http://trayvon.me/posts/4a17b156.html</id>
     <published>2018-10-24T12:18:12.779Z</published>
-    <updated>2017-10-28T00:39:58.000Z</updated>
+    <updated>2018-10-27T11:25:48.391Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     
