@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://trayvon.me/"/>
-  <updated>2018-10-28T02:37:34.422Z</updated>
+  <updated>2018-10-30T03:59:59.298Z</updated>
   <id>http://trayvon.me/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows下生成https证书</title>
+    <link href="http://trayvon.me/posts/eb1c71d3.html"/>
+    <id>http://trayvon.me/posts/eb1c71d3.html</id>
+    <published>2018-10-30T03:04:56.000Z</published>
+    <updated>2018-10-30T03:59:59.298Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>基于windows平台64位系统</p><ol><li><p>下载<code>openssl</code></p><p>安装<code>openssl</code>有两种方式，第一种直接下载安装包，装上就可运行；第二种可以自己下载源码</p><p>此处的重点不是如何安装<code>openssl</code>,故选用最简单的方法进行使用：</p><p>​    Windows下的<code>openssl</code>的安装包下载地址为：<a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">openssl</a> </p></li></ol><h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><p>安装好<code>openssl</code>之后进入到<code>openssl</code>的安装目录下的bin目录</p><p>默认路径为<code>C:\Program Files\OpenSSL-Win64</code></p><h2 id="运行一下命令，生成密钥key"><a href="#运行一下命令，生成密钥key" class="headerlink" title="运行一下命令，生成密钥key"></a>运行一下命令，生成密钥key</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -des3 -out D:\workdir\server.key 2048</span><br></pre></td></tr></table></figure><p><code>D:\Docker\docker-nginx-php-mysql\server.key</code>:这个是生成的文件路径</p><p>这个命令执行的时候，会提示输入密码，任意输入即可</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Generating RSA private key, 2048 bit long modulus (2 primes)</span><br><span class="line">....................................................................................................................................................+++++</span><br><span class="line">......+++++</span><br><span class="line">e is 65537 (0x010001)</span><br><span class="line">Enter pass phrase for D:\workdir\server.key:</span><br><span class="line">Verifying - Enter pass phrase for D:\workdir\server.key:</span><br></pre></td></tr></table></figure><p>生成完毕后，可以使用以下命令移除密码：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -in D:\workdir\server.key -out D:\workdir\server.key</span><br></pre></td></tr></table></figure><h2 id="创建证书的申请文件"><a href="#创建证书的申请文件" class="headerlink" title="创建证书的申请文件"></a>创建证书的申请文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key D:\workdir\server.key -out D:\workdir\server.csr</span><br></pre></td></tr></table></figure><p><strong>如果在执行上面的命令的时候出现以下错误：</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to load config info from /usr/local/ssl/openssl.cnf</span><br></pre></td></tr></table></figure><ul><li><p>此错误因为<code>openssl</code>找不到对应的配置文件，如果电脑已经安装过<code>git</code>的话，在<code>git</code>中已经存在这个文件夹，w文件默认路径为<code>C:\Program Files\Git\mingw64\ssl\openssl.cnf</code>我们可以借用<code>git</code>下面这个文件进行命令操作，可将命令修改为：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key D:\workdir\server.key -out D:\workdir\server.csr -config "C:\Program Files\Git\mingw64\ssl\openssl.cnf"</span><br></pre></td></tr></table></figure></li></ul><p>执行完上述命令后，根据提示一步步输入信息即可：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [AU]:cn</span><br><span class="line">State or Province Name (full name) [Some-State]:*****</span><br><span class="line">Locality Name (eg, city) []:****</span><br><span class="line">Organization Name (eg, company) [Internet Widgits Pty Ltd]:person</span><br><span class="line">Organizational Unit Name (eg, section) []:person</span><br><span class="line">Common Name (e.g. server FQDN or YOUR name) []:person</span><br><span class="line">Email Address []:*****8@example.com</span><br><span class="line"></span><br><span class="line">Please enter the following 'extra' attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []:</span><br><span class="line">An optional company name []:</span><br></pre></td></tr></table></figure><ul><li>后面的<code>extra</code>信息选填，可以直接回车略过。</li></ul><h2 id="签署服务器证书文件server-crt"><a href="#签署服务器证书文件server-crt" class="headerlink" title="签署服务器证书文件server.crt"></a>签署服务器证书文件<code>server.crt</code></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -key D:\workdir\server.key -out D:\workdir\ca.crt -days 3650 -config <span class="string">"C:\Program Files\Git\mingw64\ssl\openssl.cnf"</span></span><br></pre></td></tr></table></figure><p><strong>注意</strong>：如果在之前出现过<code>Unable to load config info from /usr/local/ssl/openssl.cnf</code>，即找不到<code>openssl</code>的对应配置文件，需要在后面加上上述的<code>-config</code>参数；如果之前没有报错，可忽略掉<code>-config</code>参数。</p><h2 id="使用上述文件创建自己的证书"><a href="#使用上述文件创建自己的证书" class="headerlink" title="使用上述文件创建自己的证书"></a>使用上述文件创建自己的证书</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 3650 -in D:\workdir\server.csr -CA D:\workdir\ca.crt -CAkey server.key -CAcreateserial -out D:\workdir\server.crt</span><br></pre></td></tr></table></figure><p><strong>至此，自签名的<code>.crt</code>生成完毕</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h1&gt;&lt;p&gt;基于windows平台64位系统&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;下载&lt;code&gt;openssl&lt;/code&gt;&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+    
+      <category term="nginx" scheme="http://trayvon.me/tags/nginx/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo博客搭建</title>
