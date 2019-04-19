@@ -40,55 +40,6 @@
   </entry>
   
   <entry>
-    <title>记一次简单的二分盲注</title>
-    <link href="http://trayvon.me/posts/ef4b6d40.html"/>
-    <id>http://trayvon.me/posts/ef4b6d40.html</id>
-    <published>2019-04-07T14:09:10.000Z</published>
-    <updated>2019-04-19T05:10:04.661Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="相关知识："><a href="#相关知识：" class="headerlink" title="相关知识："></a>相关知识：</h1><h2 id="利用二分法进行sql盲注"><a href="#利用二分法进行sql盲注" class="headerlink" title="利用二分法进行sql盲注"></a>利用二分法进行sql盲注</h2><p>大致思想：</p><p>1、mid为left和right的中间值，mid是否和left相等，相等跳到5，如果不等跳到2</p><p>2、请求mid，如果返回正确的页面跳到3，如果返回错误的页面跳到4</p><p>3、返回页面正确，将right赋值为mid</p><p>4、返回页面错误，将left赋值为mid</p><p>5、返回mid值</p><p>这样速度还是很快的，一般10次以内的请求就可以查询出一个字符。</p><p>先数据库表的创建</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE a(id **INT**,content  VARCHAR(20));</span><br><span class="line"></span><br><span class="line">CREATE TABLE b(id **INT**,name VARCHAR(100));</span><br><span class="line"></span><br><span class="line">INSERT INTO a(id,content) VALUES(1,&apos;test&apos;);</span><br><span class="line"></span><br><span class="line">INSERT INTO b(id,name) VALUES(1,&apos;aaaaaaaaaabbbbbbbbbcccccccccddddddddddff</span><br><span class="line"></span><br><span class="line">fffggggggggggggggggg&apos;);</span><br></pre></td></tr></table></figure><p>盲注漏洞的php代码</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&amp;lt;!--?php</span><br><span class="line">$host = <span class="string">"localhost"</span>;</span><br><span class="line">$port = <span class="number">3306</span>;</span><br><span class="line">$user = <span class="string">"root"</span>;</span><br><span class="line">$passwd = <span class="string">"root"</span>;</span><br><span class="line"> </span><br><span class="line">$sql = <span class="string">"select * from a where id="</span>.$_GET[<span class="string">'sqli'</span>];</span><br><span class="line">$conn = mysql_connect($host.<span class="string">":"</span>.$port, $user, $passwd)</span><br><span class="line">            <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Could not connect to MySql server!"</span>);</span><br><span class="line">mysql_select_db(<span class="string">"test"</span>)</span><br><span class="line">         <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"Could not select database!"</span>);</span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>(mysql_num_rows($result)) &#123;</span><br><span class="line">    <span class="comment">//var_dump($a);</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'True'</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'False'</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">mysql_close();&amp;lt;/pre--&amp;gt;</span><br></pre></td></tr></table></figure><h1 id="题目具体分析："><a href="#题目具体分析：" class="headerlink" title="题目具体分析："></a>题目具体分析：</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;相关知识：&quot;&gt;&lt;a href=&quot;#相关知识：&quot; class=&quot;headerlink&quot; title=&quot;相关知识：&quot;&gt;&lt;/a&gt;相关知识：&lt;/h1&gt;&lt;h2 id=&quot;利用二分法进行sql盲注&quot;&gt;&lt;a href=&quot;#利用二分法进行sql盲注&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-    
-      <category term="WEB" scheme="http://trayvon.me/tags/WEB/"/>
-    
-      <category term="SQL" scheme="http://trayvon.me/tags/SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>记一次简单的XFF注入</title>
-    <link href="http://trayvon.me/posts/e5c8a305.html"/>
-    <id>http://trayvon.me/posts/e5c8a305.html</id>
-    <published>2019-04-07T12:46:51.000Z</published>
-    <updated>2019-04-19T05:10:04.661Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0x00预备基础："><a href="#0x00预备基础：" class="headerlink" title="0x00预备基础："></a>0x00预备基础：</h1><ul><li><h3 id="XFF注入："><a href="#XFF注入：" class="headerlink" title="XFF注入："></a>XFF注入：</h3><p>X-Forwarded-For简称XFF头，它代表了客户端的真实IP，通过修改他的值就可以伪造客户端IP。</p><p>1）判断是否存在注入</p><p>使用Burp的Repeater模块对请求进行修改，分别修改X-Forwarded-For的值如下所示：</p><p>X-Forwarded-for: 127.0.0.1</p><p>X-Forwarded-for: 127.0.0.1’</p><p>X-Forwarded-for: 127.0.0.1’ and 1=1#</p><p>X-Forwarded-for: 127.0.0.1’ and 1=2#</p><p>访问的结果有回显，说明存在SQL注入漏洞。</p></li><li></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0x00预备基础：&quot;&gt;&lt;a href=&quot;#0x00预备基础：&quot; class=&quot;headerlink&quot; title=&quot;0x00预备基础：&quot;&gt;&lt;/a&gt;0x00预备基础：&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;h3 id=&quot;XFF注入：&quot;&gt;&lt;a href=&quot;#XFF注入：&quot; cl
-      
-    
-    </summary>
-    
-    
-      <category term="-WEB -SQL注入" scheme="http://trayvon.me/tags/WEB-SQL%E6%B3%A8%E5%85%A5/"/>
-    
-  </entry>
-  
-  <entry>
     <title>在http层通过header请求头伪造ip</title>
     <link href="http://trayvon.me/posts/56dbd93c.html"/>
     <id>http://trayvon.me/posts/56dbd93c.html</id>
@@ -134,24 +85,6 @@
     
     
       <category term="ctf" scheme="http://trayvon.me/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JAVA反序列化在有限条件的应用</title>
-    <link href="http://trayvon.me/posts/551a356f.html"/>
-    <id>http://trayvon.me/posts/551a356f.html</id>
-    <published>2018-11-01T12:41:40.000Z</published>
-    <updated>2018-11-06T08:03:13.068Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-      <category term="JAVA" scheme="http://trayvon.me/tags/JAVA/"/>
-    
-      <category term="反序列化" scheme="http://trayvon.me/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     
   </entry>
   
